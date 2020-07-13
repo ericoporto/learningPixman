@@ -3,7 +3,7 @@ project(learningPixman)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(learningPixman main.cpp)
+add_executable(learningPixman main.cpp bmp.cpp bmp.h)
 
 include_directories(libsrc/stb/)
 
