@@ -6,25 +6,20 @@
 #include "pixman.h"
 #include <fstream>
 
-inline uint8_t write8(uint8_t c, std::ofstream &f){
+inline bool write8(uint8_t c, std::ofstream &f){
     f.put(c);
-    if(f.good()) return c;
-    return EOF;
+    return f.good();
 }
 
-inline int write16(int w, std::ofstream &f){
+inline bool write16(int w, std::ofstream &f){
     int b1, b2;
     b1 = (w & 0xFF00) >> 8;
     b2 = w & 0x00FF;
 
-    if (write8(b2, f)==b2)
-        if (write8(b1, f)==b1)
-            return w;
-
-    return EOF;
+    return write8(b2, f) && write8(b1, f);
 }
 
-inline long write32(long l, std::ofstream &f){
+inline bool write32(long l, std::ofstream &f){
     int b1, b2, b3, b4;
 
     b1 = (int)((l & 0xFF000000L) >> 24);
@@ -32,12 +27,7 @@ inline long write32(long l, std::ofstream &f){
     b3 = (int)((l & 0x0000FF00L) >> 8);
     b4 = (int)l & 0x00FF;
 
-    if (write8(b4,f)==b4)
-        if (write8(b3,f)==b3)
-            if (write8(b2,f)==b2)
-                if (write8(b1,f)==b1)
-                    return l;
-    return EOF;
+    return write8(b4,f) && write8(b3,f) && write8(b2,f) && write8(b1,f);
 }
 
 
