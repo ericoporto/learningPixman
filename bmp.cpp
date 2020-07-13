@@ -46,7 +46,7 @@ void bmp::SaveBMP24bpp(const char *filename) {
     f.open(filename,  std::fstream::out | std::fstream::binary);
 
     int bfSize;
-    int biSizeImage;
+    int mapSizeImage;
     int depth;
     int bpp;
     int i, j;
@@ -72,30 +72,30 @@ void bmp::SaveBMP24bpp(const char *filename) {
 
     bpp = (depth == 8) ? 8 : 24;
 
-    biSizeImage = s * h; /* (w*3 + filler) * h */
-    bfSize = 54 + biSizeImage;       /* header + image data */
+    mapSizeImage = s * h; /* (w*3 + filler) * h */
+    bfSize = 54 + mapSizeImage;       /* header + image data */
 
     /* file_header */
-    write16(0x4D42, f);              /*  header field used to identify the BMP ("BM") */
-    write32(bfSize, f);              /* size of the BMP file in bytes  */
-    write16(0, f);                   /* Reserved */
-    write16(0, f);                   /* Reserved */
+    write16(0x4D42, f);       /* header field used to identify the BMP ("BM") */
+    write32(bfSize, f);       /* size of the BMP file in bytes  */
+    write16(0, f);            /* Reserved */
+    write16(0, f);            /* Reserved */
 
-    write32(54, f); /* offset, starting address of the image data bytes */
+    write32(54, f);           /* offset, starting address of the image data bytes */
 
     /* info_header */
-    write32(40, f);                  /* size of this header, in bytes (40) */
-    write32(w, f);              /* bitmap width in pixels (signed integer)  */
-    write32(h, f);              /* bitmap height in pixels (signed integer)  */
-    write16(1, f);                   /* number of color planes (must be 1)  */
-    write16(bpp, f);                 /* color depth, number of bits per pixel */
-    write32(0, f);                   /* compression method being used. */
-    write32(biSizeImage, f);         /* image size of raw bitmap data; a dummy 0 can be given for BI_RGB bitmaps. */
-    write32(0xB12, f);               /* horizontal resolution. (pixel per metre, signed integer) (0xB12 = 72 dpi) */
-    write32(0xB12, f);               /* vertical resolution. (pixel per metre, signed integer)  */
+    write32(40, f);           /* size of this header, in bytes (40) */
+    write32(w, f);            /* bitmap width in pixels (signed integer)  */
+    write32(h, f);            /* bitmap height in pixels (signed integer)  */
+    write16(1, f);            /* number of color planes (must be 1)  */
+    write16(bpp, f);          /* color depth, number of bits per pixel */
+    write32(0, f);            /* compression method being used. */
+    write32(mapSizeImage, f); /* image size of raw bitmap data; a dummy 0 can be given for BI_RGB bitmaps. */
+    write32(0xB12, f);        /* horizontal resolution. (pixel per metre, signed integer) (0xB12 = 72 dpi) */
+    write32(0xB12, f);        /* vertical resolution. (pixel per metre, signed integer)  */
 
-    write32(0, f);                /* number of colors in the color palette */
-    write32(0, f);                /* number of important colors used */
+    write32(0, f);            /* number of colors in the color palette */
+    write32(0, f);            /* number of important colors used */
 
     buffer = (uint8_t *) pixman_image_get_data(copy);
     /* image data */
