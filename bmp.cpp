@@ -65,6 +65,7 @@ void bmp::SaveBMP24bpp(const char *filename) {
     mapSizeImage = s * h; /* (w*3 + filler) * h */
     bfSize = 54 + mapSizeImage;       /* header + image data */
 
+    /* more info -> https://en.wikipedia.org/wiki/BMP_file_format */
     /* file_header */
     write16(0x4D42, f);       /* header field used to identify the BMP ("BM") */
     write32(bfSize, f);       /* size of the BMP file in bytes  */
