@@ -15,13 +15,13 @@ int main() {
 
     bmp* myBmp = new bmp();
 
-    myBmp->surface = pixman_image_create_bits(PIXMAN_r8g8b8a8, width, height, NULL, 0);
+    myBmp->pm_image = pixman_image_create_bits(PIXMAN_r8g8b8a8, width, height, NULL, 0);
 
     fill = pixman_image_create_solid_fill(&white);
-    pixman_image_composite(PIXMAN_OP_SRC, fill, NULL, myBmp->surface , 0,0,0,0, 0,0,width,height);
+    pixman_image_composite(PIXMAN_OP_SRC, fill, NULL, myBmp->pm_image , 0, 0, 0, 0, 0, 0, width, height);
 
     fill = pixman_image_create_solid_fill(&red);
-    pixman_image_composite(PIXMAN_OP_SRC, fill, NULL, myBmp->surface , 0,0,0,0, 2,2,8,8);
+    pixman_image_composite(PIXMAN_OP_SRC, fill, NULL, myBmp->pm_image , 0, 0, 0, 0, 2, 2, 8, 8);
 
     myBmp->SaveBMP24bpp("test.bmp");
 

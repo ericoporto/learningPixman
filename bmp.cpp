@@ -46,13 +46,13 @@ void bmp::SaveBMP24bpp(const char *filename) {
 
     pixman_image_t *copy; //used to create the bit data for the exported BMP
 
-    w = pixman_image_get_width(surface);
-    h = pixman_image_get_height(surface);
+    w = pixman_image_get_width(pm_image);
+    h = pixman_image_get_height(pm_image);
 
     copy = pixman_image_create_bits (PIXMAN_r8g8b8,
                                      w, h, NULL, 0);
     pixman_image_composite32 (PIXMAN_OP_SRC,
-                              surface, NULL, copy,
+                              pm_image, NULL, copy,
                               0, 0, 0, 0,
                               0, 0, w, h);
 

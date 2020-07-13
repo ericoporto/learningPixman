@@ -9,7 +9,7 @@
 
 class bmp {
 public:
-    pixman_image_t* surface = nullptr;
+    pixman_image_t* pm_image = nullptr;
     void SaveBMP24bpp(const char * filename);
 };
 
