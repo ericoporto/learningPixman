@@ -1,6 +1,6 @@
 #include <iostream>
 #include "pixman.h"
-#include "bmp.h"
+#include "Bitmap.h"
 
 int main() {
     const pixman_color_t black = { 0, 0, 0, 0xffff };
@@ -13,7 +13,7 @@ int main() {
     pixman_image_t* surface = nullptr;
     pixman_image_t *fill = nullptr;
 
-    bmp* myBmp = new bmp();
+    Bitmap* myBmp = new Bitmap();
 
     myBmp->pm_image = pixman_image_create_bits(PIXMAN_r8g8b8a8, width, height, NULL, 0);
 
